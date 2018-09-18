@@ -18,12 +18,20 @@ public class Char2Controller : MonoBehaviour
 
     void FixedUpdate()
     {
-        if (Input.GetKey(KeyCode.A) || Input.GetKey(KeyCode.D))
+        float moveHorizontal = 0;
+
+        if (Input.GetKey(KeyCode.A))
         {
-            float moveHorizontal = Input.GetAxis("Horizontal");
+            moveHorizontal = -1;
+        }
+        else if (Input.GetKey(KeyCode.D))
+        {
+            moveHorizontal = 1;
+        }
+    
             Vector2 movement = new Vector2(moveHorizontal, 0);
             rigid.AddForce(movement * speed);
-        }
+        
 
 
     }
@@ -33,12 +41,10 @@ public class Char2Controller : MonoBehaviour
         jumpTimer -= Time.deltaTime;
         if (Input.GetKey(KeyCode.W))
         {
-            float moveVertical = Input.GetAxis("Vertical");
-            if (jumpTimer < 0 && moveVertical > 0)
+            if (jumpTimer < 0)
             {
                 rigid.velocity = new Vector2(0, 10);
-                //            rigid.AddForce(new Vector2(0, moveVertical * jumpPower));
-                jumpTimer = 2;
+                jumpTimer = 1;
             }
         }
 
